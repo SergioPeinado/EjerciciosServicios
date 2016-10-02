@@ -3,73 +3,52 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-var dni = "26052913P";
- 
-var exp
-var exp1
- 
-  exp = /^\d{8}[a-zA-Z]$/;
-  exp1 = /(\d{8})/;
-  
-function nif() {
-  var numero
-  var letr
-  var letra
- 
- 
-  if(exp.test (dni) == true){
-     numero = dni.substr(0,dni.length-1);
-     letr = dni.substr(dni.length-1,1);
-     numero = numero % 23;
-     letra='TRWAGMYFPDXBNJZSQVHLCKET';
-     letra=letra.substring(numero,numero+1);
-    if (letra!=letr.toUpperCase()) {
-       console.log('Nif erroneo, la letra del NIF no se corresponde');
+function Ejercicio2(cadena){
+    var _cadena = cadena;
+    return{
+        esValido: function(){
+            if((/[0-9]{8}[A-Z]?$/).test(_cadena)){
+                letras="TRWAGMYFPDXBNJZSQVHLCKET";
+                posicion = parseInt(_cadena) % 23;
+                letra = letras.substring(posicion,posicion+1);
+         return "DNI correcto"; 
+     } else{
+         console.log("DNI incorrecto");
      }
-     else{
-         console.log("Nif correcto");
-     }
-     
-     }
-     if (exp1.test (dni) == true && exp.test(dni) != true){
-         console.log("Dni correcto")
-     }
-  }
-   
-function dniONif(){
-    if( exp.test (dni) == true){
-        console.log("Has introducido un NIF");
-    }
-   
-    if(exp1.test (dni) == true && exp.test(dni) != true){
-        console.log("Has introducido un DNI");
-    }
     
-}
-function letraDni(){
-    if(exp.test (dni) == true){
-        console.log(dni.substring(dni.length-1));
-    }
-}
-function validarLetra(){
-    var numero
-    var letr
-    var letra
-     if(exp.test (dni) == true){
-     numero = dni.substr(0,dni.length-1);
-     letr = dni.substr(dni.length-1,1);
-     numero = numero % 23;
-     letra='TRWAGMYFPDXBNJZSQVHLCKET';
-     letra=letra.substring(numero,numero+1);
-    if (letra!=letr.toUpperCase()) {
-       console.log('Letra correcta');
+  },
+    esDnioNif: function(){
+        if((/[0-9]{8}[A-Z]$/).test(_cadena)){
+            return "Has introducido un NIF";       
+        }else if ((/[0-9]{8}$/).test(_cadena)){
+            return "Has introducido un DNI";
+        }else{
+            return "Has introducido un valor erroneo";
+        }
+    },
+    obtenerLetra: function(){
+        
+    if((/[0-9]{8}[A-Z]$/).test(_cadena)){
+        console.log(_cadena.substring(_cadena.length-1));
+    
+     }else {
+         return "Has introducio un Dni sin Letra"
      }
-     else{
-         console.log("Letra incorrecta");
-         }
+    },
+    LetraDni: function(){
+        if((/[0-9]{8}[A-Z]?$/).test(_cadena)){
+                letras="TRWAGMYFPDXBNJZSQVHLCKET";
+                posicion = parseInt(_cadena) % 23;
+                letra = letras.substring(posicion,posicion+1);
+         return letra ;
+    }else{
+        return "Has introducido el DNI mal";
     }
+  }
 }
-var ejer2_1 = nif();
-var ejer2_2 = dniONif();
-var ejer2_3 = letraDni();
-var ejer2_4 = validarLetra();
+}
+var prueba = Ejercicio2("26052913");
+console.log(prueba.esValido());
+console.log(prueba.esDnioNif());
+console.log(prueba.obtenerLetra());
+console.log(prueba.LetraDni());
